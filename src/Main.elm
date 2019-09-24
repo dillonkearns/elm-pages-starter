@@ -76,6 +76,8 @@ markdownDocument =
             \markdownBody ->
                 Html.div [] [ Markdown.toHtml [] markdownBody ]
                     |> Element.html
+                    |> List.singleton
+                    |> Element.paragraph [ Element.width Element.fill ]
                     |> Ok
         }
 
