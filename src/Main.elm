@@ -34,12 +34,12 @@ manifest =
     , categories = [ Pages.Manifest.Category.education ]
     , displayMode = Manifest.Standalone
     , orientation = Manifest.Portrait
-    , description = "elm-pages - A statically typed site generator."
+    , description = "elm-pages-starter - A statically typed site generator."
     , iarcRatingId = Nothing
-    , name = "elm-pages docs"
+    , name = "elm-pages-starter"
     , themeColor = Just Color.white
     , startUrl = pages.index
-    , shortName = Just "elm-pages"
+    , shortName = Just "elm-pages-starter"
     , sourceIcon = images.iconPng
     }
 
@@ -289,7 +289,7 @@ head metadata =
         Metadata.Page meta ->
             Seo.summaryLarge
                 { canonicalUrlOverride = Nothing
-                , siteName = "elm-pages"
+                , siteName = "elm-pages-starter"
                 , image =
                     { url = images.iconPng
                     , alt = "elm-pages logo"
@@ -305,7 +305,7 @@ head metadata =
         Metadata.Article meta ->
             Seo.summaryLarge
                 { canonicalUrlOverride = Nothing
-                , siteName = "elm-pages"
+                , siteName = "elm-pages starter"
                 , image =
                     { url = meta.image
                     , alt = meta.description
@@ -342,7 +342,7 @@ head metadata =
             in
             Seo.summary
                 { canonicalUrlOverride = Nothing
-                , siteName = "elm-pages"
+                , siteName = "elm-pages-starter"
                 , image =
                     { url = meta.avatar
                     , alt = meta.name ++ "'s elm-pages articles."
@@ -378,12 +378,12 @@ head metadata =
 
 canonicalSiteUrl : String
 canonicalSiteUrl =
-    "https://elm-pages.com"
+    "https://elm-pages-starter.netlify.com/"
 
 
 siteTagline : String
 siteTagline =
-    "A statically typed site generator - elm-pages"
+    "Starter blog for elm-pages"
 
 
 publishedDateView metadata =
