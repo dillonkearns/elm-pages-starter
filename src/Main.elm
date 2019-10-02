@@ -116,7 +116,17 @@ view model siteMetadata page =
     { title = title
     , body =
         body
-            |> Element.layout
+            |> Element.layoutWith
+                { options =
+                    -- We set focus styles for interactable elements. See Palette.elm for more detais.
+                    -- Note that currently these do not apply to links by default.
+                    [ Element.focusStyle
+                        { borderColor = Nothing
+                        , backgroundColor = Nothing
+                        , shadow = Just Palette.focusStyleShadow
+                        }
+                    ]
+                }
                 [ Element.width Element.fill
                 , Font.size 20
                 , Font.family [ Font.typeface "Roboto" ]
@@ -239,7 +249,7 @@ header currentPath =
             , Element.Border.widthEach { bottom = 1, left = 0, right = 0, top = 0 }
             , Element.Border.color (Element.rgba255 40 80 40 0.4)
             ]
-            [ Element.link []
+            [ Palette.link []
                 { url = "/"
                 , label =
                     Element.row [ Font.size 30, Element.spacing 16 ]
@@ -266,7 +276,7 @@ highlightableLink currentPath linkDirectory displayName =
         isHighlighted =
             currentPath |> Directory.includes linkDirectory
     in
-    Element.link
+    Palette.link
         (if isHighlighted then
             [ Font.underline
             , Font.color Palette.color.primary
@@ -397,7 +407,7 @@ publishedDateView metadata =
 
 githubRepoLink : Element msg
 githubRepoLink =
-    Element.newTabLink []
+    Palette.newTabLink []
         { url = "https://github.com/dillonkearns/elm-pages"
         , label =
             Element.image
@@ -410,7 +420,7 @@ githubRepoLink =
 
 elmDocsLink : Element msg
 elmDocsLink =
-    Element.newTabLink []
+    Palette.newTabLink []
         { url = "https://package.elm-lang.org/packages/dillonkearns/elm-pages/latest/"
         , label =
             Element.image
