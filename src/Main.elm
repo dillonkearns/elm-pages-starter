@@ -258,9 +258,11 @@ header currentPath =
                         ]
                 }
             , Element.row [ Element.spacing 15 ]
-                [ elmDocsLink
-                , githubRepoLink
-                , highlightableLink currentPath pages.blog.directory "Blog"
+                -- Wrap each item in a single element, to avoid an elm-ui focus bug
+                -- @see https://github.com/mdgriffith/elm-ui/issues/47
+                [ Element.el [] elmDocsLink
+                , Element.el [] githubRepoLink
+                , Element.el [] (highlightableLink currentPath pages.blog.directory "Blog")
                 ]
             ]
         ]

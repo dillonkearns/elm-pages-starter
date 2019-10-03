@@ -18,4 +18,4 @@ plus m n =
     m + n
 ```
 
-[This is a link back home](/)
+[See all posts](/blog)
