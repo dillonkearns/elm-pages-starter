@@ -1,13 +1,13 @@
-port module Pages exposing (PathKey, allPages, allImages, application, images, isValidRoute, pages)
+port module Pages exposing (PathKey, allPages, allImages, internals, images, isValidRoute, pages, buildTime)
 
 import Color exposing (Color)
+import Pages.Internal
 import Head
 import Html exposing (Html)
 import Json.Decode
 import Json.Encode
 import Mark
 import Pages.Platform
-import Pages.ContentCache exposing (Page)
 import Pages.Manifest exposing (DisplayMode, Orientation)
 import Pages.Manifest.Category as Category exposing (Category)
 import Url.Parser as Url exposing ((</>), s)
@@ -15,7 +15,12 @@ import Pages.Document as Document
 import Pages.ImagePath as ImagePath exposing (ImagePath)
 import Pages.PagePath as PagePath exposing (PagePath)
 import Pages.Directory as Directory exposing (Directory)
+import Time
 
+
+buildTime : Time.Posix
+buildTime = 
+    Time.millisToPosix 1578096231
 
 type PathKey
     = PathKey
@@ -45,31 +50,14 @@ directoryWithoutIndex path =
 port toJsPort : Json.Encode.Value -> Cmd msg
 
 
-application :
-    { init : ( userModel, Cmd userMsg )
-    , update : userMsg -> userModel -> ( userModel, Cmd userMsg )
-    , subscriptions : userModel -> Sub userMsg
-    , view : userModel -> List ( PagePath PathKey, metadata ) -> Page metadata view PathKey -> { title : String, body : Html userMsg }
-    , head : metadata -> List (Head.Tag PathKey)
-    , documents : List ( String, Document.DocumentHandler metadata view )
-    , manifest : Pages.Manifest.Config PathKey
-    , canonicalSiteUrl : String
+internals : Pages.Internal.Internal PathKey
+internals =
+    { applicationType = Pages.Internal.Browser
+    , toJsPort = toJsPort
+    , content = content
+    , pathKey = PathKey
     }
-    -> Pages.Platform.Program userModel userMsg metadata view
-application config =
-    Pages.Platform.application
-        { init = config.init
-        , view = config.view
-        , update = config.update
-        , subscriptions = config.subscriptions
-        , document = Document.fromList config.documents
-        , content = content
-        , toJsPort = toJsPort
-        , head = config.head
-        , manifest = config.manifest
-        , canonicalSiteUrl = config.canonicalSiteUrl
-        , pathKey = PathKey
-        }
+        
 
 
 
@@ -145,6 +133,12 @@ isValidRoute route =
 content : List ( List String, { extension: String, frontMatter : String, body : Maybe String } )
 content =
     [ 
+  ( []
+    , { frontMatter = """{"title":"elm-pages-starter - a simple blog starter","type":"page"}
+""" , body = Nothing
+    , extension = "md"
+    } )
+  ,
   ( ["blog", "draft"]
     , { frontMatter = """{"type":"blog","author":"Dillon Kearns","title":"A Draft Blog Post","description":"I'm not quite ready to share this post with the world","image":"/images/article-covers/mountains.jpg","draft":true,"published":"2019-09-21"}
 """ , body = Nothing
@@ -159,12 +153,6 @@ content =
   ,
   ( ["blog"]
     , { frontMatter = """{"title":"elm-pages blog","type":"blog-index"}
-""" , body = Nothing
-    , extension = "md"
-    } )
-  ,
-  ( []
-    , { frontMatter = """{"title":"elm-pages-starter - a simple blog starter","type":"page"}
 """ , body = Nothing
     , extension = "md"
     } )

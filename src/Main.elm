@@ -25,6 +25,7 @@ import Pages.Manifest as Manifest
 import Pages.Manifest.Category
 import Pages.PagePath as PagePath exposing (PagePath)
 import Pages.Platform exposing (Page)
+import Pages.StaticHttp as StaticHttp
 import Palette
 
 
@@ -55,15 +56,16 @@ type alias Rendered =
 
 main : Pages.Platform.Program Model Msg Metadata Rendered
 main =
-    Pages.application
-        { init = init
+    Pages.Platform.application
+        { init = \_ -> init
         , view = view
         , update = update
         , subscriptions = subscriptions
         , documents = [ markdownDocument ]
-        , head = head
         , manifest = manifest
         , canonicalSiteUrl = canonicalSiteUrl
+        , onPageChange = \_ -> ()
+        , internals = Pages.internals
         }
 
 
@@ -107,27 +109,42 @@ subscriptions _ =
     Sub.none
 
 
-view : Model -> List ( PagePath Pages.PathKey, Metadata ) -> Page Metadata Rendered Pages.PathKey -> { title : String, body : Html Msg }
-view model siteMetadata page =
-    let
-        { title, body } =
-            pageView model siteMetadata page
-    in
-    { title = title
-    , body =
-        body
-            |> Element.layout
-                [ Element.width Element.fill
-                , Font.size 20
-                , Font.family [ Font.typeface "Roboto" ]
-                , Font.color (Element.rgba255 0 0 0 0.8)
-                ]
-    }
+view :
+    List ( PagePath Pages.PathKey, Metadata )
+    ->
+        { path : PagePath Pages.PathKey
+        , frontmatter : Metadata
+        }
+    ->
+        StaticHttp.Request
+            { view : Model -> Rendered -> { title : String, body : Html Msg }
+            , head : List (Head.Tag Pages.PathKey)
+            }
+view siteMetadata page =
+    StaticHttp.succeed
+        { view =
+            \model viewForPage ->
+                let
+                    { title, body } =
+                        pageView model siteMetadata page viewForPage
+                in
+                { title = title
+                , body =
+                    body
+                        |> Element.layout
+                            [ Element.width Element.fill
+                            , Font.size 20
+                            , Font.family [ Font.typeface "Roboto" ]
+                            , Font.color (Element.rgba255 0 0 0 0.8)
+                            ]
+                }
+        , head = head page.frontmatter
+        }
 
 
-pageView : Model -> List ( PagePath Pages.PathKey, Metadata ) -> Page Metadata Rendered Pages.PathKey -> { title : String, body : Element Msg }
-pageView model siteMetadata page =
-    case page.metadata of
+pageView : Model -> List ( PagePath Pages.PathKey, Metadata ) -> { path : PagePath Pages.PathKey, frontmatter : Metadata } -> Rendered -> { title : String, body : Element Msg }
+pageView model siteMetadata page viewForPage =
+    case page.frontmatter of
         Metadata.Page metadata ->
             { title = metadata.title
             , body =
@@ -137,7 +154,7 @@ pageView model siteMetadata page =
                     , Element.spacing 60
                     , Element.Region.mainContent
                     ]
-                    [ page.view
+                    [ viewForPage
                     ]
                 ]
                     |> Element.textColumn
@@ -172,7 +189,7 @@ pageView model siteMetadata page =
                             :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
                             :: Palette.blogHeading metadata.title
                             :: articleImageView metadata.image
-                            :: [ page.view ]
+                            :: [ viewForPage ]
                         )
                     ]
             }
@@ -193,7 +210,7 @@ pageView model siteMetadata page =
                         ]
                         [ Palette.blogHeading author.name
                         , Author.view [] author
-                        , Element.paragraph [ Element.centerX, Font.center ] [ page.view ]
+                        , Element.paragraph [ Element.centerX, Font.center ] [ viewForPage ]
                         ]
                     ]
             }
