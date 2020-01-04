@@ -7,6 +7,7 @@ import DocumentSvg
 import Element exposing (Element)
 import Element.Background
 import Element.Border
+import Element.Events
 import Element.Font as Font
 import Element.Region
 import Head
@@ -64,7 +65,7 @@ main =
         , documents = [ markdownDocument ]
         , manifest = manifest
         , canonicalSiteUrl = canonicalSiteUrl
-        , onPageChange = \_ -> ()
+        , onPageChange = \_ -> NoOp
         , internals = Pages.internals
         }
 
@@ -85,23 +86,27 @@ markdownDocument =
 
 
 type alias Model =
-    {}
+    { number : Int }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model, Cmd.none )
+    ( Model 0, Cmd.none )
 
 
-type alias Msg =
-    ()
+type Msg
+    = Increment
+    | NoOp
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        () ->
+        NoOp ->
             ( model, Cmd.none )
+
+        Increment ->
+            ( { model | number = model.number + 1 }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -154,7 +159,9 @@ pageView model siteMetadata page viewForPage =
                     , Element.spacing 60
                     , Element.Region.mainContent
                     ]
-                    [ viewForPage
+                    [ Element.el [ Element.Events.onClick Increment ] <|
+                        Element.text (String.fromInt model.number)
+                    , viewForPage
                     ]
                 ]
                     |> Element.textColumn
@@ -166,7 +173,9 @@ pageView model siteMetadata page viewForPage =
             { title = metadata.title
             , body =
                 Element.column [ Element.width Element.fill ]
-                    [ header page.path
+                    [ Element.el [ Element.Events.onClick Increment ] <|
+                        Element.text (String.fromInt model.number)
+                    , header page.path
                     , Element.column
                         [ Element.padding 30
                         , Element.spacing 40
@@ -220,6 +229,8 @@ pageView model siteMetadata page viewForPage =
             , body =
                 Element.column [ Element.width Element.fill ]
                     [ header page.path
+                    , Element.el [ Element.Events.onClick Increment ] <|
+                        Element.text (String.fromInt model.number)
                     , Element.column [ Element.padding 20, Element.centerX ] [ Index.view siteMetadata ]
                     ]
             }

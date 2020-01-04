@@ -1,4 +1,4 @@
-port module Pages exposing (PathKey, allPages, allImages, internals, images, isValidRoute, pages, buildTime)
+port module Pages exposing (PathKey, allPages, allImages, internals, images, isValidRoute, pages, builtAt)
 
 import Color exposing (Color)
 import Pages.Internal
@@ -18,9 +18,9 @@ import Pages.Directory as Directory exposing (Directory)
 import Time
 
 
-buildTime : Time.Posix
-buildTime = 
-    Time.millisToPosix 1578096231
+builtAt : Time.Posix
+builtAt =
+    Time.millisToPosix 1578100571
 
 type PathKey
     = PathKey
