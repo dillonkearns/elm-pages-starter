@@ -8,7 +8,9 @@
     "dependencies": {
         "direct": {
             "avh4/elm-color": "1.0.0",
-            "dillonkearns/elm-pages": "1.1.2",
+            "dillonkearns/elm-pages": "2.0.0",
+            "dillonkearns/elm-rss": "1.0.0",
+            "dillonkearns/elm-sitemap": "1.0.0",
             "elm/browser": "1.0.2",
             "elm/core": "1.0.4",
             "elm/html": "1.0.0",
@@ -30,6 +32,8 @@
             "rtfeldman/elm-hex": "1.0.0"
         },
         "indirect": {
+            "billstclair/elm-xml-eeue56": "1.0.1",
+            "dmy/elm-imf-date-time": "1.0.1",
             "elm/bytes": "1.0.8",
             "elm/file": "1.0.5",
             "elm/random": "1.0.0",
@@ -37,8 +41,11 @@
             "elm/virtual-dom": "1.0.2",
             "elm-community/dict-extra": "2.4.0",
             "fredcy/elm-parseint": "2.0.1",
+            "justinmimbs/time-extra": "1.1.0",
+            "lazamar/dict-parser": "1.0.2",
             "mgold/elm-nonempty-list": "4.0.2",
             "miniBill/elm-codec": "1.2.0",
+            "ryannhg/date-format": "2.3.0",
             "tripokey/elm-fuzzy": "5.2.1",
             "zwilias/json-decode-exploration": "6.0.0"
         }
