@@ -10,7 +10,7 @@
   "author": "Dillon Kearns",
   "license": "BSD-3",
   "dependencies": {
-    "elm-pages": "^1.2.0",
+    "elm-pages": "1.2.5",
     "highlight.js": "^9.15.10",
     "node-sass": "^4.12.0"
   },
