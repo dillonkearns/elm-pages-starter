@@ -11,6 +11,10 @@ import Pages.PagePath as PagePath exposing (PagePath)
 import Pages.Platform exposing (Page)
 
 
+type alias PostEntry =
+    ( PagePath Pages.PathKey, Metadata.ArticleMetadata )
+
+
 view :
     List ( PagePath Pages.PathKey, Metadata )
     -> Element msg
@@ -36,13 +40,22 @@ view posts =
                         Metadata.BlogIndex ->
                             Nothing
                 )
+            |> List.sortWith postPublishDateDescending
             |> List.map postSummary
         )
 
 
-postSummary :
-    ( PagePath Pages.PathKey, Metadata.ArticleMetadata )
-    -> Element msg
+postPublishDateAscending : PostEntry -> PostEntry -> Order
+postPublishDateAscending ( _, metadata1 ) ( _, metadata2 ) =
+    Date.compare metadata1.published metadata2.published
+
+
+postPublishDateDescending : PostEntry -> PostEntry -> Order
+postPublishDateDescending ( _, metadata1 ) ( _, metadata2 ) =
+    Date.compare metadata2.published metadata1.published
+
+
+postSummary : PostEntry -> Element msg
 postSummary ( postPath, post ) =
     articleIndex post
         |> linkToPost postPath
