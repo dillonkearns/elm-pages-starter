@@ -16,6 +16,7 @@ import Html exposing (Html)
 import Html.Attributes as Attr
 import Index
 import Json.Decode
+import Layout
 import Markdown
 import Metadata exposing (Metadata)
 import MySitemap
@@ -146,20 +147,7 @@ view siteMetadata page =
     StaticHttp.succeed
         { view =
             \model viewForPage ->
-                let
-                    { title, body } =
-                        pageView model siteMetadata page viewForPage
-                in
-                { title = title
-                , body =
-                    body
-                        |> Element.layout
-                            [ Element.width Element.fill
-                            , Font.size 20
-                            , Font.family [ Font.typeface "Roboto" ]
-                            , Font.color (Element.rgba255 0 0 0 0.8)
-                            ]
-                }
+                Layout.view (pageView model siteMetadata page viewForPage)
         , head = head page.frontmatter
         }
 
