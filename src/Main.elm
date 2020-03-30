@@ -147,91 +147,65 @@ view siteMetadata page =
     StaticHttp.succeed
         { view =
             \model viewForPage ->
-                Layout.view (pageView model siteMetadata page viewForPage)
+                Layout.view (pageView model siteMetadata page viewForPage) page
         , head = head page.frontmatter
         }
 
 
-pageView : Model -> List ( PagePath Pages.PathKey, Metadata ) -> { path : PagePath Pages.PathKey, frontmatter : Metadata } -> Rendered -> { title : String, body : Element Msg }
+pageView :
+    Model
+    -> List ( PagePath Pages.PathKey, Metadata )
+    -> { path : PagePath Pages.PathKey, frontmatter : Metadata }
+    -> Rendered
+    -> { title : String, body : List (Element Msg) }
 pageView model siteMetadata page viewForPage =
     case page.frontmatter of
         Metadata.Page metadata ->
             { title = metadata.title
             , body =
-                [ header page.path
-                , Element.column
-                    [ Element.padding 50
-                    , Element.spacing 60
-                    , Element.Region.mainContent
-                    ]
-                    [ viewForPage
-                    ]
+                [ viewForPage
                 ]
-                    |> Element.textColumn
-                        [ Element.width Element.fill
-                        ]
+
+            --        |> Element.textColumn
+            --            [ Element.width Element.fill
+            --            ]
             }
 
         Metadata.Article metadata ->
             { title = metadata.title
             , body =
-                Element.column [ Element.width Element.fill ]
-                    [ header page.path
-                    , Element.column
-                        [ Element.padding 30
-                        , Element.spacing 40
-                        , Element.Region.mainContent
-                        , Element.width (Element.fill |> Element.maximum 800)
-                        , Element.centerX
-                        ]
-                        (Element.column [ Element.spacing 10 ]
-                            [ Element.row [ Element.spacing 10 ]
-                                [ Author.view [] metadata.author
-                                , Element.column [ Element.spacing 10, Element.width Element.fill ]
-                                    [ Element.paragraph [ Font.bold, Font.size 24 ]
-                                        [ Element.text metadata.author.name
-                                        ]
-                                    , Element.paragraph [ Font.size 16 ]
-                                        [ Element.text metadata.author.bio ]
-                                    ]
+                Element.column [ Element.spacing 10 ]
+                    [ Element.row [ Element.spacing 10 ]
+                        [ Author.view [] metadata.author
+                        , Element.column [ Element.spacing 10, Element.width Element.fill ]
+                            [ Element.paragraph [ Font.bold, Font.size 24 ]
+                                [ Element.text metadata.author.name
                                 ]
+                            , Element.paragraph [ Font.size 16 ]
+                                [ Element.text metadata.author.bio ]
                             ]
-                            :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
-                            :: Palette.blogHeading metadata.title
-                            :: articleImageView metadata.image
-                            :: [ viewForPage ]
-                        )
+                        ]
                     ]
+                    :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
+                    :: Palette.blogHeading metadata.title
+                    :: articleImageView metadata.image
+                    :: [ viewForPage ]
             }
 
         Metadata.Author author ->
             { title = author.name
             , body =
-                Element.column
-                    [ Element.width Element.fill
-                    ]
-                    [ header page.path
-                    , Element.column
-                        [ Element.padding 30
-                        , Element.spacing 20
-                        , Element.Region.mainContent
-                        , Element.width (Element.fill |> Element.maximum 800)
-                        , Element.centerX
-                        ]
-                        [ Palette.blogHeading author.name
-                        , Author.view [] author
-                        , Element.paragraph [ Element.centerX, Font.center ] [ viewForPage ]
-                        ]
-                    ]
+                [ Palette.blogHeading author.name
+                , Author.view [] author
+                , Element.paragraph [ Element.centerX, Font.center ] [ viewForPage ]
+                ]
             }
 
         Metadata.BlogIndex ->
             { title = "elm-pages blog"
             , body =
-                Element.column [ Element.width Element.fill ]
-                    [ header page.path
-                    , Element.column [ Element.padding 20, Element.centerX ] [ Index.view siteMetadata ]
-                    ]
+                [ Element.column [ Element.padding 20, Element.centerX ] [ Index.view siteMetadata ]
+                ]
             }
 
 
