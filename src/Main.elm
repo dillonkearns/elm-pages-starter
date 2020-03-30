@@ -20,6 +20,7 @@ import Layout
 import Markdown
 import Metadata exposing (Metadata)
 import MySitemap
+import Page.Article
 import Pages exposing (images, pages)
 import Pages.Directory as Directory exposing (Directory)
 import Pages.Document
@@ -172,25 +173,7 @@ pageView model siteMetadata page viewForPage =
             }
 
         Metadata.Article metadata ->
-            { title = metadata.title
-            , body =
-                Element.column [ Element.spacing 10 ]
-                    [ Element.row [ Element.spacing 10 ]
-                        [ Author.view [] metadata.author
-                        , Element.column [ Element.spacing 10, Element.width Element.fill ]
-                            [ Element.paragraph [ Font.bold, Font.size 24 ]
-                                [ Element.text metadata.author.name
-                                ]
-                            , Element.paragraph [ Font.size 16 ]
-                                [ Element.text metadata.author.bio ]
-                            ]
-                        ]
-                    ]
-                    :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
-                    :: Palette.blogHeading metadata.title
-                    :: articleImageView metadata.image
-                    :: [ viewForPage ]
-            }
+            Page.Article.view metadata viewForPage
 
         Metadata.Author author ->
             { title = author.name
