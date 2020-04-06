@@ -4,7 +4,7 @@
   "author": "Dillon Kearns",
   "title": "A Draft Blog Post",
   "description": "I'm not quite ready to share this post with the world",
-  "image": "/images/article-covers/mountains.jpg",
+  "image": "images/article-covers/mountains.jpg",
   "draft": true,
   "published": "2019-09-21",
 }
