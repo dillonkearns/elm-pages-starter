@@ -17,7 +17,8 @@ import Html.Attributes as Attr
 import Index
 import Json.Decode
 import Layout
-import Markdown
+import Markdown.Parser
+import Markdown.Renderer
 import Metadata exposing (Metadata)
 import MySitemap
 import Page.Article
@@ -100,7 +101,12 @@ markdownDocument =
         , metadata = Metadata.decoder
         , body =
             \markdownBody ->
-                Html.div [] [ Markdown.toHtml [] markdownBody ]
+                -- Html.div [] [ Markdown.toHtml [] markdownBody ]
+                Markdown.Parser.parse markdownBody
+                    |> Result.withDefault []
+                    |> Markdown.Renderer.render Markdown.Renderer.defaultHtmlRenderer
+                    |> Result.withDefault [ Html.text "" ]
+                    |> Html.div []
                     |> Element.html
                     |> List.singleton
                     |> Element.paragraph [ Element.width Element.fill ]
