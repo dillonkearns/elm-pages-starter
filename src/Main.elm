@@ -24,7 +24,6 @@ import MySitemap
 import Page.Article
 import Pages exposing (images, pages)
 import Pages.Directory as Directory exposing (Directory)
-import Pages.Document
 import Pages.ImagePath as ImagePath exposing (ImagePath)
 import Pages.Manifest as Manifest
 import Pages.Manifest.Category
@@ -61,7 +60,7 @@ type alias Rendered =
 
 main : Pages.Platform.Program Model Msg Metadata Rendered
 main =
-    Pages.Platform.application
+    Pages.Platform.init
         { init = \_ -> init
         , view = view
         , update = update
@@ -69,10 +68,11 @@ main =
         , documents = [ markdownDocument ]
         , manifest = manifest
         , canonicalSiteUrl = canonicalSiteUrl
-        , onPageChange = \_ -> ()
-        , generateFiles = generateFiles
+        , onPageChange = Nothing
         , internals = Pages.internals
         }
+        |> Pages.Platform.withFileGenerator generateFiles
+        |> Pages.Platform.toProgram
 
 
 generateFiles :
@@ -82,36 +82,38 @@ generateFiles :
         , body : String
         }
     ->
-        List
-            (Result String
-                { path : List String
-                , content : String
-                }
+        StaticHttp.Request
+            (List
+                (Result String
+                    { path : List String
+                    , content : String
+                    }
+                )
             )
 generateFiles siteMetadata =
-    [ Feed.fileToGenerate { siteTagline = siteTagline, siteUrl = canonicalSiteUrl } siteMetadata |> Ok
-    , MySitemap.build { siteUrl = canonicalSiteUrl } siteMetadata |> Ok
-    ]
+    StaticHttp.succeed
+        [ Feed.fileToGenerate { siteTagline = siteTagline, siteUrl = canonicalSiteUrl } siteMetadata |> Ok
+        , MySitemap.build { siteUrl = canonicalSiteUrl } siteMetadata |> Ok
+        ]
 
 
-markdownDocument : ( String, Pages.Document.DocumentHandler Metadata Rendered )
+markdownDocument : { extension : String, metadata : Json.Decode.Decoder Metadata, body : String -> Result error (Element msg) }
 markdownDocument =
-    Pages.Document.parser
-        { extension = "md"
-        , metadata = Metadata.decoder
-        , body =
-            \markdownBody ->
-                -- Html.div [] [ Markdown.toHtml [] markdownBody ]
-                Markdown.Parser.parse markdownBody
-                    |> Result.withDefault []
-                    |> Markdown.Renderer.render Markdown.Renderer.defaultHtmlRenderer
-                    |> Result.withDefault [ Html.text "" ]
-                    |> Html.div []
-                    |> Element.html
-                    |> List.singleton
-                    |> Element.paragraph [ Element.width Element.fill ]
-                    |> Ok
-        }
+    { extension = "md"
+    , metadata = Metadata.decoder
+    , body =
+        \markdownBody ->
+            -- Html.div [] [ Markdown.toHtml [] markdownBody ]
+            Markdown.Parser.parse markdownBody
+                |> Result.withDefault []
+                |> Markdown.Renderer.render Markdown.Renderer.defaultHtmlRenderer
+                |> Result.withDefault [ Html.text "" ]
+                |> Html.div []
+                |> Element.html
+                |> List.singleton
+                |> Element.paragraph [ Element.width Element.fill ]
+                |> Ok
+    }
 
 
 type alias Model =
