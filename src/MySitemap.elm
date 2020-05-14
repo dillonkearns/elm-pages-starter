@@ -22,7 +22,7 @@ build :
 build config siteMetadata =
     { path = [ "sitemap.xml" ]
     , content =
-        Sitemap.build config
+        Sitemap.build { siteUrl = config.siteUrl ++ "/" }
             (siteMetadata
                 |> List.filter
                     (\page ->
