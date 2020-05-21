@@ -87,7 +87,12 @@ imageDecoder =
             (\imageAssetPath ->
                 case findMatchingImage imageAssetPath of
                     Nothing ->
-                        Decode.fail "Couldn't find image."
+                        "I couldn't find that. Available images are:\n"
+                            :: List.map
+                                ((\x -> "\t\"" ++ x ++ "\"") << ImagePath.toString)
+                                Pages.allImages
+                            |> String.join "\n"
+                            |> Decode.fail
 
                     Just imagePath ->
                         Decode.succeed imagePath
