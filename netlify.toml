@@ -1,3 +1,3 @@
 [build]
   publish = "./dist/"
-  command = "export ELM_HOME=\"$NETLIFY_CACHE_DIR/elm\" && npm run build"
+  command = "export ELM_HOME=\"$NETLIFY_BUILD_BASE/cache/elm\" && npm run build"
