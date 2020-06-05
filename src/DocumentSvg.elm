@@ -1,49 +1,52 @@
 module DocumentSvg exposing (view)
 
-import Color
+import Color exposing (Color)
 import Element exposing (Element)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 
 
+strokeColor : String
 strokeColor =
-    -- "url(#grad1)"
     "black"
 
 
+pageTextColor : String
 pageTextColor =
     "black"
 
 
+fillColor : String
 fillColor =
     "url(#grad1)"
 
 
-
--- "none"
-
-
+fillGradient : Svg msg
 fillGradient =
     gradient
         (Color.rgb255 5 117 230)
         (Color.rgb255 0 242 96)
 
 
-
--- (Color.rgb255 252 0 255)
--- (Color.rgb255 0 219 222)
--- (Color.rgb255 255 93 194)
--- (Color.rgb255 255 150 250)
-
-
+gradient : Color -> Color -> Svg msg
 gradient color1 color2 =
-    linearGradient [ id "grad1", x1 "0%", y1 "0%", x2 "100%", y2 "0%" ]
+    linearGradient
+        [ id "grad1"
+        , x1 "0%"
+        , y1 "0%"
+        , x2 "100%"
+        , y2 "0%"
+        ]
         [ stop
             [ offset "10%"
             , Svg.Attributes.style ("stop-color:" ++ Color.toCssString color1 ++ ";stop-opacity:1")
             ]
             []
-        , stop [ offset "100%", Svg.Attributes.style ("stop-color:" ++ Color.toCssString color2 ++ ";stop-opacity:1") ] []
+        , stop
+            [ offset "100%"
+            , Svg.Attributes.style ("stop-color:" ++ Color.toCssString color2 ++ ";stop-opacity:1")
+            ]
+            []
         ]
 
 
@@ -54,7 +57,7 @@ view =
         , viewBox "251.0485 144.52063 56.114286 74.5"
         , width "56.114286"
         , height "74.5"
-        , Svg.Attributes.width "30px"
+        , width "30px"
         ]
         [ defs []
             [ fillGradient ]
@@ -79,10 +82,66 @@ view =
                             ]
                             []
                         ]
-                    , g [ id "Line_34" ] [ line [ x1 "266.07286", y1 "182.8279", x2 "290.75465", y2 "183.00997", stroke pageTextColor, strokeLinecap "round", strokeLinejoin "round", strokeWidth "2" ] [] ]
-                    , g [ id "Line_35" ] [ line [ x1 "266.07286", y1 "191.84156", x2 "290.75465", y2 "192.02363", stroke pageTextColor, strokeLinecap "round", strokeLinejoin "round", strokeWidth "2" ] [] ]
-                    , g [ id "Line_36" ] [ line [ x1 "266.07286", y1 "200.85522", x2 "290.75465", y2 "201.0373", stroke pageTextColor, strokeLinecap "round", strokeLinejoin "round", strokeWidth "2" ] [] ]
-                    , g [ id "Line_37" ] [ line [ x1 "266.07286", y1 "164.80058", x2 "278.3874", y2 "164.94049", stroke pageTextColor, strokeLinecap "round", strokeLinejoin "round", strokeWidth "2" ] [] ]
+                    , g
+                        [ id "Line_34"
+                        ]
+                        [ line
+                            [ x1 "266.07286"
+                            , y1 "182.8279"
+                            , x2 "290.75465"
+                            , y2 "183.00997"
+                            , stroke pageTextColor
+                            , strokeLinecap "round"
+                            , strokeLinejoin "round"
+                            , strokeWidth "2"
+                            ]
+                            []
+                        ]
+                    , g
+                        [ id "Line_35"
+                        ]
+                        [ line
+                            [ x1 "266.07286"
+                            , y1 "191.84156"
+                            , x2 "290.75465"
+                            , y2 "192.02363"
+                            , stroke pageTextColor
+                            , strokeLinecap "round"
+                            , strokeLinejoin "round"
+                            , strokeWidth "2"
+                            ]
+                            []
+                        ]
+                    , g
+                        [ id "Line_36"
+                        ]
+                        [ line
+                            [ x1 "266.07286"
+                            , y1 "200.85522"
+                            , x2 "290.75465"
+                            , y2 "201.0373"
+                            , stroke pageTextColor
+                            , strokeLinecap "round"
+                            , strokeLinejoin "round"
+                            , strokeWidth "2"
+                            ]
+                            []
+                        ]
+                    , g
+                        [ id "Line_37"
+                        ]
+                        [ line
+                            [ x1 "266.07286"
+                            , y1 "164.80058"
+                            , x2 "278.3874"
+                            , y2 "164.94049"
+                            , stroke pageTextColor
+                            , strokeLinecap "round"
+                            , strokeLinejoin "round"
+                            , strokeWidth "2"
+                            ]
+                            []
+                        ]
                     ]
                 ]
             ]
