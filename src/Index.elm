@@ -8,7 +8,6 @@ import Element.Font
 import Metadata exposing (Metadata)
 import Pages
 import Pages.PagePath as PagePath exposing (PagePath)
-import Pages.Platform exposing (Page)
 
 
 type alias PostEntry =
@@ -43,11 +42,6 @@ view posts =
             |> List.sortWith postPublishDateDescending
             |> List.map postSummary
         )
-
-
-postPublishDateAscending : PostEntry -> PostEntry -> Order
-postPublishDateAscending ( _, metadata1 ) ( _, metadata2 ) =
-    Date.compare metadata1.published metadata2.published
 
 
 postPublishDateDescending : PostEntry -> PostEntry -> Order
@@ -95,6 +89,7 @@ articleIndex metadata =
         (postPreview metadata)
 
 
+readMoreLink : Element msg
 readMoreLink =
     Element.text "Continue reading >>"
         |> Element.el
