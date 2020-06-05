@@ -1,4 +1,4 @@
-module Layout exposing (..)
+module Layout exposing (view)
 
 import DocumentSvg
 import Element exposing (Element)
@@ -13,13 +13,6 @@ import Pages.Directory as Directory exposing (Directory)
 import Pages.ImagePath as ImagePath
 import Pages.PagePath as PagePath exposing (PagePath)
 import Palette
-
-
-
---view :
---        { path : PagePath Pages.PathKey
---        , frontmatter : Metadata
---        }
 
 
 view :
