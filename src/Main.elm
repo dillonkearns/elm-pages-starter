@@ -200,11 +200,16 @@ commonHeadTags =
     ]
 
 
-{-| <https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards>
-<https://htmlhead.dev>
-<https://html.spec.whatwg.org/multipage/semantics.html#standard-metadata-names>
-<https://ogp.me/>
+
+{- Read more about the metadata specs:
+
+   <https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards>
+   <https://htmlhead.dev>
+   <https://html.spec.whatwg.org/multipage/semantics.html#standard-metadata-names>
+   <https://ogp.me/>
 -}
+
+
 head : Metadata -> List (Head.Tag Pages.PathKey)
 head metadata =
     commonHeadTags
