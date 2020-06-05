@@ -1,18 +1,20 @@
-module Page.Article exposing (..)
+module Page.Article exposing (view)
 
 import Data.Author as Author
-import Date
+import Date exposing (Date)
 import Element exposing (Element)
 import Element.Font as Font
+import Metadata exposing (ArticleMetadata)
 import Pages
 import Pages.ImagePath as ImagePath exposing (ImagePath)
 import Palette
 
 
+view : ArticleMetadata -> Element msg -> { title : String, body : List (Element msg) }
 view metadata viewForPage =
     { title = metadata.title
     , body =
-        Element.column [ Element.spacing 10 ]
+        [ Element.column [ Element.spacing 10 ]
             [ Element.row [ Element.spacing 10 ]
                 [ Author.view [] metadata.author
                 , Element.column [ Element.spacing 10, Element.width Element.fill ]
@@ -24,13 +26,15 @@ view metadata viewForPage =
                     ]
                 ]
             ]
-            :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
-            :: Palette.blogHeading metadata.title
-            :: articleImageView metadata.image
-            :: [ viewForPage ]
+        , publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ]
+        , Palette.blogHeading metadata.title
+        , articleImageView metadata.image
+        , viewForPage
+        ]
     }
 
 
+publishedDateView : { a | published : Date } -> Element msg
 publishedDateView metadata =
     Element.text
         (metadata.published
