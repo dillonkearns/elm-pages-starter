@@ -1,4 +1,4 @@
-module MySitemap exposing (..)
+module MySitemap exposing (build)
 
 import Metadata exposing (Metadata(..))
 import Pages
