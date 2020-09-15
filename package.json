@@ -11,7 +11,6 @@
   "license": "BSD-3",
   "dependencies": {
     "elm-pages": "^1.4.3",
-    "highlight.js": "^9.15.10",
     "node-sass": "^4.14.1"
   },
   "devDependencies": {
