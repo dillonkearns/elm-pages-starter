@@ -10,12 +10,11 @@
   "author": "Dillon Kearns",
   "license": "BSD-3",
   "dependencies": {
-    "elm-pages": "^1.4.3",
-    "node-sass": "^4.14.1"
+    "elm-pages": "^1.4.3"
   },
   "devDependencies": {
     "elm": "latest-0.19.1",
-    "elm-format": "^0.8.2",
+    "elm-format": "^0.8.3",
     "http-server": "^0.12.3"
   }
 }
