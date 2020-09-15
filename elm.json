@@ -20,7 +20,7 @@
             "elm/url": "1.0.0",
             "elm-community/list-extra": "8.2.4",
             "justinmimbs/date": "3.2.0",
-            "mdgriffith/elm-ui": "1.1.6"
+            "mdgriffith/elm-ui": "1.1.8"
         },
         "indirect": {
             "billstclair/elm-xml-eeue56": "1.0.1",
