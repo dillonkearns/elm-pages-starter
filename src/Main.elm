@@ -39,6 +39,7 @@ manifest =
     , startUrl = pages.index
     , shortName = Just "elm-pages-starter"
     , sourceIcon = images.iconPng
+    , icons = []
     }
 
 
@@ -51,7 +52,7 @@ type alias Rendered =
 -- main : Platform.Program Pages.Platform.Flags (Pages.Platform.Model Model Msg Metadata Rendered) (Pages.Platform.Msg Msg Metadata Rendered)
 
 
-main : Pages.Platform.Program Model Msg Metadata Rendered
+main : Pages.Platform.Program Model Msg Metadata Rendered Pages.PathKey
 main =
     Pages.Platform.init
         { init = \_ -> init
@@ -129,8 +130,8 @@ update msg model =
             ( model, Cmd.none )
 
 
-subscriptions : Model -> Sub Msg
-subscriptions _ =
+--subscriptions : Model -> Sub Msg
+subscriptions _ _ _ =
     Sub.none
 
 
