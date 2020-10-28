@@ -1,8 +1,11 @@
 module Template.Page exposing (Model, Msg, template)
 
+import Cloudinary
 import Head
 import Head.Seo as Seo
+import MimeType
 import Pages exposing (images)
+import Pages.ImagePath exposing (ImagePath)
 import Pages.PagePath exposing (PagePath)
 import Shared
 import Site
@@ -33,11 +36,11 @@ head :
     StaticPayload Page StaticData
     -> List (Head.Tag Pages.PathKey)
 head { metadata } =
-    Seo.summaryLarge
+    Seo.summary
         { canonicalUrlOverride = Nothing
         , siteName = "elm-pages-starter"
         , image =
-            { url = images.iconPng
+            { url = cloudinaryIcon
             , alt = "elm-pages logo"
             , dimensions = Nothing
             , mimeType = Nothing
@@ -60,3 +63,8 @@ view allMetadata static rendered =
         [ rendered
         ]
     }
+
+
+cloudinaryIcon : ImagePath pathKey
+cloudinaryIcon =
+    Cloudinary.urlRectangular "v1603234028/elm-pages/elm-pages-icon" (Just MimeType.Png) ( 300, 157 )

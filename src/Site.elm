@@ -2,6 +2,7 @@ module Site exposing (canonicalUrl, config, tagline)
 
 --import Cloudinary
 
+import Cloudinary
 import Color
 import MimeType
 import Pages exposing (images, pages)
@@ -56,10 +57,10 @@ manifest =
     , shortName = Just "elm-pages-starter"
     , sourceIcon = images.iconPng
     , icons =
-        [-- icon webp 192
-         --, icon webp 512
-         --, icon MimeType.Png 192
-         --, icon MimeType.Png 512
+        [ icon webp 192
+        , icon webp 512
+        , icon MimeType.Png 192
+        , icon MimeType.Png 512
         ]
     }
 
@@ -74,26 +75,26 @@ webp =
     MimeType.OtherImage "webp"
 
 
+icon :
+    MimeType.MimeImage
+    -> Int
+    -> Manifest.Icon pathKey
+icon format width =
+    { src = cloudinaryIcon format width
+    , sizes = [ ( width, width ) ]
+    , mimeType = format |> Just
+    , purposes = [ Manifest.IconPurposeAny, Manifest.IconPurposeMaskable ]
+    }
 
---icon :
---    MimeType.MimeImage
---    -> Int
---    -> Manifest.Icon pathKey
---icon format width =
---    { src = cloudinaryIcon format width
---    , sizes = [ ( width, width ) ]
---    , mimeType = format |> Just
---    , purposes = [ Manifest.IconPurposeAny, Manifest.IconPurposeMaskable ]
---    }
---
---cloudinaryIcon :
---    MimeType.MimeImage
---    -> Int
---    -> ImagePath pathKey
---cloudinaryIcon mimeType width =
---    Cloudinary.urlSquare "v1603234028/elm-pages/elm-pages-icon" (Just mimeType) width
---
---
---socialIcon : ImagePath pathKey
---socialIcon =
---    Cloudinary.urlSquare "v1603234028/elm-pages/elm-pages-icon" Nothing 250
+
+cloudinaryIcon :
+    MimeType.MimeImage
+    -> Int
+    -> ImagePath pathKey
+cloudinaryIcon mimeType width =
+    Cloudinary.urlSquare "v1603234028/elm-pages/elm-pages-icon" (Just mimeType) width
+
+
+socialIcon : ImagePath pathKey
+socialIcon =
+    Cloudinary.urlSquare "v1603234028/elm-pages/elm-pages-icon" Nothing 250
