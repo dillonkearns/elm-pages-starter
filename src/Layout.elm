@@ -7,19 +7,19 @@ import Element.Border
 import Element.Font as Font
 import Element.Region
 import Html exposing (Html)
-import Metadata exposing (Metadata)
 import Pages
 import Pages.Directory as Directory exposing (Directory)
 import Pages.ImagePath as ImagePath
 import Pages.PagePath as PagePath exposing (PagePath)
 import Palette
+import TemplateType exposing (TemplateType)
 
 
 view :
     { title : String, body : List (Element msg) }
     ->
         { path : PagePath Pages.PathKey
-        , frontmatter : Metadata
+        , frontmatter : TemplateType
         }
     -> { title : String, body : Html msg }
 view document page =
