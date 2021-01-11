@@ -1,9 +1,9 @@
 module MySitemap exposing (build)
 
-import Metadata exposing (Metadata(..))
 import Pages
 import Pages.PagePath as PagePath exposing (PagePath)
 import Sitemap
+import TemplateType exposing (TemplateType(..))
 
 
 build :
@@ -12,7 +12,7 @@ build :
     ->
         List
             { path : PagePath Pages.PathKey
-            , frontmatter : Metadata
+            , frontmatter : TemplateType
             , body : String
             }
     ->

@@ -5,17 +5,18 @@ import Date
 import Element exposing (Element)
 import Element.Border
 import Element.Font
-import Metadata exposing (Metadata)
+import Metadata
 import Pages
 import Pages.PagePath as PagePath exposing (PagePath)
+import TemplateType exposing (TemplateType)
 
 
 type alias PostEntry =
-    ( PagePath Pages.PathKey, Metadata.ArticleMetadata )
+    ( PagePath Pages.PathKey, Metadata.Article )
 
 
 view :
-    List ( PagePath Pages.PathKey, Metadata )
+    List ( PagePath Pages.PathKey, TemplateType )
     -> Element msg
 view posts =
     Element.column [ Element.spacing 20 ]
@@ -23,20 +24,17 @@ view posts =
             |> List.filterMap
                 (\( path, metadata ) ->
                     case metadata of
-                        Metadata.Page meta ->
+                        TemplateType.Page meta ->
                             Nothing
 
-                        Metadata.Author _ ->
-                            Nothing
-
-                        Metadata.Article meta ->
+                        TemplateType.Article meta ->
                             if meta.draft then
                                 Nothing
 
                             else
                                 Just ( path, meta )
 
-                        Metadata.BlogIndex ->
+                        TemplateType.BlogIndex _ ->
                             Nothing
                 )
             |> List.sortWith postPublishDateDescending
@@ -73,7 +71,7 @@ title text =
             ]
 
 
-articleIndex : Metadata.ArticleMetadata -> Element msg
+articleIndex : Metadata.Article -> Element msg
 articleIndex metadata =
     Element.el
         [ Element.centerX
@@ -102,7 +100,7 @@ readMoreLink =
             ]
 
 
-postPreview : Metadata.ArticleMetadata -> Element msg
+postPreview : Metadata.Article -> Element msg
 postPreview post =
     Element.textColumn
         [ Element.centerX

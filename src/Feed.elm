@@ -1,9 +1,9 @@
 module Feed exposing (fileToGenerate)
 
-import Metadata exposing (Metadata(..))
 import Pages
 import Pages.PagePath as PagePath exposing (PagePath)
 import Rss
+import TemplateType exposing (TemplateType(..))
 
 
 fileToGenerate :
@@ -13,7 +13,7 @@ fileToGenerate :
     ->
         List
             { path : PagePath Pages.PathKey
-            , frontmatter : Metadata
+            , frontmatter : TemplateType
             , body : String
             }
     ->
@@ -33,7 +33,7 @@ generate :
     ->
         List
             { path : PagePath Pages.PathKey
-            , frontmatter : Metadata
+            , frontmatter : TemplateType
             , body : String
             }
     -> String
@@ -51,7 +51,7 @@ generate { siteTagline, siteUrl } siteMetadata =
 
 metadataToRssItem :
     { path : PagePath Pages.PathKey
-    , frontmatter : Metadata
+    , frontmatter : TemplateType
     , body : String
     }
     -> Maybe Rss.Item
