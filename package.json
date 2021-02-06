@@ -5,14 +5,14 @@
   "scripts": {
     "start": "elm-pages develop",
     "serve": "npm run build && http-server ./dist -a localhost -p 3000 -c-1",
-    "build": "elm-pages build"
+    "build": "elm-pages build",
+    "postinstall": "elm-tooling install"
   },
-  "postinstall": "elm-tooling install",
   "dependencies": {
     "elm-pages": "^1.5.4"
   },
   "devDependencies": {
-    "elm-tooling": "^1.0.0",
+    "elm-tooling": "^1.1.0",
     "http-server": "^0.12.3"
   }
 }
