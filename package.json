@@ -9,10 +9,10 @@
     "postinstall": "elm-tooling install"
   },
   "dependencies": {
-    "elm-pages": "^1.5.4"
+    "elm-pages": "^1.5.5"
   },
   "devDependencies": {
-    "elm-tooling": "^1.1.0",
+    "elm-tooling": "^1.3.0",
     "http-server": "^0.12.3"
   }
 }
