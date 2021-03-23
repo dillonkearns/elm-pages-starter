@@ -70,7 +70,9 @@ metadataToRssItem page =
                     , author = article.author.name
                     , pubDate = Rss.Date article.published
                     , content = Nothing
-                    }
+                    , contentEncoded = Nothing
+                    , enclosure = Nothing }
+
 
         _ ->
             Nothing
