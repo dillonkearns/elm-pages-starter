@@ -1,7 +1,13 @@
 [build]
-  publish = "./dist/"
-  command = "npx --no-install elm-tooling install && npm run build"
+  functions = "functions/"
+  publish = "dist/"
+  command = "mkdir bin && export PATH=\"/opt/build/repo/bin:$PATH\" && echo $PATH && curl https://static.lamdera.com/bin/linux/lamdera -o bin/lamdera && chmod a+x bin/lamdera && export ELM_HOME=\"$NETLIFY_BUILD_BASE/cache/elm\" && npm install && npm run build"
 
-[build.environment]
-  ELM_HOME = "$NETLIFY_BUILD_BASE/cache/elm"
-  NO_ELM_TOOLING_INSTALL = "1"
+[dev]
+  command = "npm start"
+  targetPort = 1234
+  autoLaunch = true
+  framework = "#custom"
+
+[functions]
+  node_bundler = "esbuild"

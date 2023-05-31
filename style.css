@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto&display=swap");
-
-.avatar img {
-  border-radius: 50%;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
