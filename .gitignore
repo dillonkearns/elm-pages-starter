@@ -3,4 +3,10 @@ elm-stuff/
 dist/
 .cache/
 gen/
+.elm-pages
+functions/server-render
+functions/render
 
+
+# Local Netlify folder
+.netlify
