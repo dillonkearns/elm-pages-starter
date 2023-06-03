@@ -1,0 +1,10 @@
+node_modules/
+elm-stuff/
+dist/
+dist-server/
+.elm-pages/
+functions/render
+functions/server-render
+.idea
+docs.json
+.netlify/

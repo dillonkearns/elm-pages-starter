@@ -1,0 +1,14 @@
+# fly.toml app configuration file generated for elm-pages-v3-express on 2023-05-17T13:17:36-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "elm-pages-v3-express"
+primary_region = "mia"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0

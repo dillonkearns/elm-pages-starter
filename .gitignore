@@ -4,9 +4,4 @@ dist/
 .cache/
 gen/
 .elm-pages
-functions/server-render
-functions/render
-
-
-# Local Netlify folder
-.netlify
+dist-server/
