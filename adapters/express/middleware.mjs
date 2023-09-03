@@ -22,6 +22,7 @@ export default async (req, res, next) => {
 const reqToElmPagesJson = (req) => {
   const url = `${req.protocol}://${req.host}${req.originalUrl}`;
   return {
+    requestTime: Math.round(new Date().getTime()),
     method: req.method,
     headers: req.headers,
     rawUrl: url,
