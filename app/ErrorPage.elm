@@ -54,20 +54,24 @@ view : ErrorPage -> Model -> View Msg
 view error model =
     { body =
         [ Html.div []
-            [ Html.p [] [ Html.text "Page not found. Maybe try another URL?" ]
-            , Html.div []
-                [ Html.button
-                    [ onClick Increment
-                    ]
-                    [ Html.text
-                        (model.count
-                            |> String.fromInt
-                        )
-                    ]
+            [ Html.p []
+                [ Html.text <|
+                    case error of
+                        NotFound ->
+                            "Page not found. Maybe try another URL?"
+
+                        InternalError string ->
+                            "Something went wrong.\n" ++ string
                 ]
             ]
         ]
-    , title = "This is a NotFound Error"
+    , title =
+        case error of
+            NotFound ->
+                "Page Not Found"
+
+            InternalError string ->
+                "Unexpected Error"
     }
 
 
