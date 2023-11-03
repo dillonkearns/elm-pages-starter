@@ -3,7 +3,6 @@ module ErrorPage exposing (ErrorPage(..), Model, Msg, head, init, internalError,
 import Effect exposing (Effect)
 import Head
 import Html exposing (Html)
-import Html.Events exposing (onClick)
 import View exposing (View)
 
 
