@@ -1,12 +1,12 @@
 # elm-pages-starter-express
 
-This is an example of using [elm-pages 3.0](https://github.com/dillonkearns/elm-pages-v3-beta) with [express.js](https://expressjs.com/).
+This is an example of using [elm-pages 3.0](https://github.com/dillonkearns/elm-pages) with [express.js](https://expressjs.com/).
 
 You can see it running at <https://elm-pages-v3-express.fly.dev/>
 
-Source code is available at <https://github.com/blaix/elm-pages-starter-express>
+Source code is available at <https://github.com/shahnhogan/elm-pages-starter-express>
 
-See discussion on elm-pages-v3 adapters at <https://github.com/dillonkearns/elm-pages/discussions/378>
+See discussion on elm-pages adapters at <https://github.com/dillonkearns/elm-pages/discussions/378>
 
 ## The important parts
 
