@@ -45,8 +45,6 @@ You can use the one in this repo directly or as a reference.
 
 ### Install Lamdera
 
-[Install Lamdera with these instructions](https://dashboard.lamdera.app/docs/download).
-
 `elm-pages` 3.0 uses the lamdera compiler, which is a superset of the Elm compiler with some extra functionality to automatically serialize Elm types to Bytes.
 
 ### Debugging Lamdera Errors
@@ -72,4 +70,4 @@ Check out [the Package Docs](https://package.elm-lang.org/packages/dillonkearns/
 ## Running Scripts with `elm-pages run`
 
 - `npm install`
-- `npx elm-pages run script/src/AddRoute.elm User.Id_` - now you can try out the generator! And you can tweak it, or even define new generator modules in the `script/` folder! You can also shorten this command to `npx elm-pages run AddRoute User.Id_` if you prefer.
+- `npx elm-pages run script/src/AddRoute.elm User.Id_`, or `npx elm-pages run script/src/AddStaticRoute.elm HelloWorld` - now you can try out the generator! And you can tweak it, or even define new generator modules in the `script/` folder! You can also shorten this command to `npx elm-pages run AddRoute User.Id_` if you prefer.
