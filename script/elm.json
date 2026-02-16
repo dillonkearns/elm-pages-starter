@@ -7,13 +7,13 @@
     "elm-version": "0.19.1",
     "dependencies": {
         "direct": {
-            "dillonkearns/elm-cli-options-parser": "3.2.0",
-            "dillonkearns/elm-pages": "10.2.2",
+            "dillonkearns/elm-cli-options-parser": "4.0.0",
+            "dillonkearns/elm-pages": "11.0.0",
             "elm/bytes": "1.0.8",
             "elm/core": "1.0.5",
             "elm/html": "1.0.1",
             "elm/json": "1.1.4",
-            "mdgriffith/elm-codegen": "5.2.0"
+            "mdgriffith/elm-codegen": "6.0.1"
         },
         "indirect": {
             "Chadtech/elm-bool-extra": "2.4.2",
