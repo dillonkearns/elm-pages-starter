@@ -148,7 +148,9 @@ perform ({ fromPageMsg, key } as helpers) effect =
             helpers.runFetcher record
 
 
-{-| -}
+{-| Decompose an Effect into a SimulatedEffect for the test framework.
+Maintain this function alongside `perform` when adding custom Effect variants.
+-}
 testPerform : Effect msg -> SimulatedEffect msg
 testPerform effect =
     case effect of
@@ -162,6 +164,9 @@ testPerform effect =
             SimulatedEffect.batch (List.map testPerform list)
 
         GetStargazers toMsg ->
+            -- In tests, provide a mock value for the stargazers count.
+            -- Alternatively, return SimulatedEffect.none and use
+            -- PagesProgram.simulateMsg to provide the result manually.
             SimulatedEffect.dispatchMsg (toMsg (Ok 0))
 
         SetField info ->
