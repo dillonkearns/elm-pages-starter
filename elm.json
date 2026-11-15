@@ -5,7 +5,7 @@
         "app",
         ".elm-pages"
     ],
-    "elm-version": "0.19.1",
+    "elm-version": "0.19.3",
     "dependencies": {
         "direct": {
             "avh4/elm-color": "1.0.0",

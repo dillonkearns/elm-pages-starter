@@ -4,7 +4,7 @@
         "src",
         "../codegen"
     ],
-    "elm-version": "0.19.1",
+    "elm-version": "0.19.3",
     "dependencies": {
         "direct": {
             "dillonkearns/elm-cli-options-parser": "5.0.1",

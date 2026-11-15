@@ -6,7 +6,7 @@
     "build": "elm-pages build"
   },
   "devDependencies": {
-    "elm": "^0.19.1-6",
+    "elm": "^0.19.3-0",
     "elm-codegen": "^0.6.3",
     "elm-format": "^0.8.8",
     "elm-pages": "^3.6.0",
